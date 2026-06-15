@@ -1,0 +1,20 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Secrets / variables locales — copiez ce fichier en ".dev.vars" (gitignoré)
+#   cp .dev.vars.example .dev.vars      (PowerShell : Copy-Item .dev.vars.example .dev.vars)
+#
+# NB : aujourd'hui le code N'A BESOIN d'AUCUN secret pour tourner en local
+#      (le cookie de session est un simple UUID stocké en base D1).
+#      Ce fichier sert surtout à fixer l'admin créé au 1er démarrage et à
+#      réserver les variables pour le futur.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Admin créé automatiquement au premier démarrage (base locale vide).
+# Si SEED_ADMIN_PASSWORD est laissé vide, un mot de passe aléatoire est généré
+# et AFFICHÉ dans les logs du conteneur au premier boot.
+# L'email doit avoir un TLD (point après le @), sinon le login le rejette.
+SEED_ADMIN_EMAIL=admin@local.test
+SEED_ADMIN_PASSWORD=
+
+# Réservé pour un usage futur — NON consommé par le code actuel.
+# (Présent uniquement parce que wrangler.toml le mentionne pour la prod.)
+# SESSION_SIGNING_KEY=

@@ -1,0 +1,52 @@
+# Montage Docker local de myCuma-Vision
+#
+#   app        : runtime Cloudflare local (page + Functions + base D1 + KV)  → http://localhost:8788
+#   db-viewer  : interface web pour inspecter la base D1 (façon pgAdmin)     → http://localhost:8080
+#
+# Démarrage :  docker compose up --build
+# Reset total :  docker compose down -v   (supprime la base locale)
+
+services:
+  app:
+    build: .
+    container_name: mycuma-app
+    ports:
+      - "8788:8788"
+    environment:
+      PERSIST_TO: /data/state
+      D1_DATABASE: financiel-vision-db
+      PORT: "8788"
+      SEED_ADMIN_EMAIL: "${SEED_ADMIN_EMAIL:-admin@local.test}"
+      # Laissez vide pour un mot de passe aléatoire affiché dans les logs au 1er boot
+      SEED_ADMIN_PASSWORD: "${SEED_ADMIN_PASSWORD:-}"
+    volumes:
+      - d1data:/data/state
+    restart: unless-stopped
+
+  db-viewer:
+    image: coleifer/sqlite-web:latest
+    container_name: mycuma-db-viewer
+    depends_on:
+      - app
+    ports:
+      - "8080:8080"
+    volumes:
+      # RW volontaire : SQLite (mode WAL) doit pouvoir écrire les fichiers -wal/-shm
+      # même en lecture. L'interface elle-même est lancée en lecture seule (--read-only).
+      - d1data:/data/state
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        echo "Recherche du fichier SQLite de la base D1…";
+        while :; do
+          DB=$$(python -c "import glob; m=glob.glob('/data/state/**/*.sqlite', recursive=True); print(m[0] if m else '')");
+          [ -n "$$DB" ] && break;
+          echo "  …pas encore créée, on attend (lancez d'abord 'app').";
+          sleep 3;
+        done;
+        echo "Ouverture de $$DB";
+        exec sqlite_web --host 0.0.0.0 --port 8080 --read-only "$$DB"
+    restart: unless-stopped
+
+volumes:
+  d1data:

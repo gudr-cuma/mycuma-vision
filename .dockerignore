@@ -1,0 +1,28 @@
+# Dépendances et build — régénérés dans l'image
+node_modules
+dist
+dist-ssr
+
+# État local Wrangler (la base D1 locale vit dans un volume Docker, pas dans l'image)
+.wrangler
+
+# Secrets / env locaux
+.dev.vars
+.env
+
+# Git / éditeurs
+.git
+.gitignore
+.vscode
+.idea
+
+# Docs lourdes (non nécessaires au build) — NB : on n'exclut PAS public/ qui contient les démos
+docs
+data
+Financiel_Vision.pdf
+PRB_Financiel_Vision_v3.md
+prompt_analyse_financiere_FEC.md
+
+# Logs / couverture
+coverage
+*.log

@@ -1,0 +1,6 @@
+# Forcer les fins de ligne LF pour les fichiers exécutés dans des conteneurs Linux.
+# Sinon, sur Windows, autocrlf convertirait en CRLF et casserait le shebang/scripts.
+*.sh text eol=lf
+entrypoint.sh text eol=lf
+Dockerfile text eol=lf
+docker-compose.yml text eol=lf

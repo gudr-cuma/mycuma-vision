@@ -15,6 +15,13 @@ dist-ssr
 # Claude Code local settings
 .claude/settings.local.json
 
+# Cloudflare / Wrangler local state (base D1 + KV locaux)
+.wrangler
+
+# Secrets locaux (Docker / wrangler pages dev)
+.dev.vars
+.env
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
