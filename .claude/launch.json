@@ -1,0 +1,19 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Financiel Vision — Dev",
+      "runtimeExecutable": "cmd.exe",
+      "runtimeArgs": ["/c", "npm", "run", "dev"],
+      "cwd": "financiel-vision",
+      "port": 5173
+    },
+    {
+      "name": "Financiel Vision — Preview (build)",
+      "runtimeExecutable": "cmd.exe",
+      "runtimeArgs": ["/c", "npm", "run", "preview"],
+      "cwd": "financiel-vision",
+      "port": 4173
+    }
+  ]
+}
