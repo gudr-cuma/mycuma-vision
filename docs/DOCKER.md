@@ -18,7 +18,7 @@ persistante qu'on peut inspecter.
 | Conteneur   | Rôle                                              | URL                     |
 |-------------|---------------------------------------------------|-------------------------|
 | `app`       | Page + API (Functions) + base D1 + KV (rate-limit)| http://localhost:8788   |
-| `db-viewer` | Interface web pour **voir la base** (façon pgAdmin)| http://localhost:8080   |
+| `db-viewer` | Interface web pour **voir la base** (façon pgAdmin)| http://localhost:8780   |
 
 ---
 
@@ -56,7 +56,7 @@ Puis ouvrez **http://localhost:8788** et connectez-vous avec ces identifiants.
 
 ## Voir la base de données
 
-Ouvrez **http://localhost:8080** : l'interface `sqlite-web` liste les tables (`users`, `sessions`,
+Ouvrez **http://localhost:8780** : l'interface `sqlite-web` liste les tables (`users`, `sessions`,
 `permissions`, `bilan_config`…) et permet de parcourir leur contenu en lecture seule.
 
 ## Commandes utiles
@@ -105,7 +105,7 @@ Cloudflare local + le volume de base D1). Points à connaître avant un usage au
 
 ## Dépannage
 
-- **« Address already in use » sur 8788 ou 8080** : un autre programme occupe le port. Changez le
+- **« Address already in use » sur 8788 ou 8780** : un autre programme occupe le port. Changez le
   mapping dans `docker-compose.yml` (ex. `"9788:8788"`).
 - **`db-viewer` reste sur « pas encore créée »** : c'est normal tant que `app` n'a pas fini son
   premier démarrage (migrations). Il s'ouvre automatiquement ensuite.

@@ -1,7 +1,7 @@
 # Montage Docker local de myCuma-Vision
 #
 #   app        : runtime Cloudflare local (page + Functions + base D1 + KV)  → http://localhost:8788
-#   db-viewer  : interface web pour inspecter la base D1 (façon pgAdmin)     → http://localhost:8080
+#   db-viewer  : interface web pour inspecter la base D1 (façon pgAdmin)     → http://localhost:8780
 #
 # Démarrage :  docker compose up --build
 # Reset total :  docker compose down -v   (supprime la base locale)
@@ -29,7 +29,8 @@ services:
     depends_on:
       - app
     ports:
-      - "8080:8080"
+      # Hôte 8780 → conteneur 8080 (sqlite-web écoute en interne sur 8080)
+      - "8780:8080"
     volumes:
       # RW volontaire : SQLite (mode WAL) doit pouvoir écrire les fichiers -wal/-shm
       # même en lecture. L'interface elle-même est lancée en lecture seule (--read-only).
